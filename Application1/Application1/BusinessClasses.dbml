@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BUSINESS" Class="BusinessClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=METHOD-PC;Initial Catalog=BUSINESS;Persist Security Info=True;User ID=sa" SettingsObjectName="Application1.Properties.Settings" SettingsPropertyName="BUSINESSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.B_CUSTOMERS" Member="B_CUSTOMERs">
+    <Type Name="B_CUSTOMER">
+      <Column Name="IdCustomer" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Association Name="B_CUSTOMER_B_SALE" Member="B_SALEs" ThisKey="IdCustomer" OtherKey="IdCustomer" Type="B_SALE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.B_SALES" Member="B_SALEs">
+    <Type Name="B_SALE">
+      <Column Name="IdSale" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCustomer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="B_CUSTOMER_B_SALE" Member="B_CUSTOMER" ThisKey="IdCustomer" OtherKey="IdCustomer" Type="B_CUSTOMER" IsForeignKey="true" />
+      <Association Name="B_PRODUCT_B_SALE" Member="B_PRODUCT" ThisKey="IdProduct" OtherKey="IdProduct" Type="B_PRODUCT" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.B_PRODUCTS" Member="B_PRODUCTs">
+    <Type Name="B_PRODUCT">
+      <Column Name="IdProduct" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="B_PRODUCT_B_SALE" Member="B_SALEs" ThisKey="IdProduct" OtherKey="IdProduct" Type="B_SALE" />
+      <Association Name="B_PRODUCT_B_PROVIDERS_PRODUCT" Member="B_PROVIDERS_PRODUCTs" ThisKey="IdProduct" OtherKey="IdProduct" Type="B_PROVIDERS_PRODUCT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.B_PROVIDERS" Member="B_PROVIDERs">
+    <Type Name="B_PROVIDER">
+      <Column Name="IdProvider" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="B_PROVIDER_B_PROVIDERS_PRODUCT" Member="B_PROVIDERS_PRODUCTs" ThisKey="IdProvider" OtherKey="IdProvider" Type="B_PROVIDERS_PRODUCT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.B_PROVIDERS_PRODUCTS" Member="B_PROVIDERS_PRODUCTs">
+    <Type Name="B_PROVIDERS_PRODUCT">
+      <Column Name="IdProvider" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdProduct" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="B_PRODUCT_B_PROVIDERS_PRODUCT" Member="B_PRODUCT" ThisKey="IdProduct" OtherKey="IdProduct" Type="B_PRODUCT" IsForeignKey="true" />
+      <Association Name="B_PROVIDER_B_PROVIDERS_PRODUCT" Member="B_PROVIDER" ThisKey="IdProvider" OtherKey="IdProvider" Type="B_PROVIDER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="B_SALE_DATAs">
+    <Type Name="B_SALE_DATA">
+      <Column Name="Sale" Type="B_SALE" CanBeNull="false" />
+      <Column Name="Customer" Type="B_CUSTOMER" CanBeNull="false" />
+      <Column Name="Product" Type="B_PRODUCT" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
